@@ -2,9 +2,9 @@
 CREATE TABLE `Post` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
-    `content` TEXT,
-    `user` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
+    `body` TEXT,
+    `username` VARCHAR(255) NOT NULL,
+    `passwordDigest` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -14,8 +14,8 @@ CREATE TABLE `Post` (
 -- CreateTable
 CREATE TABLE `Comment` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `user` VARCHAR(255) NOT NULL,
-    `content` TEXT,
+    `username` VARCHAR(255) NOT NULL,
+    `body` TEXT,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `postId` INTEGER NOT NULL,
     `parentId` INTEGER,

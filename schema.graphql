@@ -2,11 +2,112 @@
 ### Do not make changes to this file directly
 
 
+type Comment {
+  body: String
+  comments(orderBy: [CommentCommentsOrderByInput!]): [Comment!]!
+  createdAt: DateTime!
+  id: Int!
+  post: Post!
+  username: String!
+}
+
+input CommentCommentsOrderByInput {
+  id: SortOrder
+}
+
+input CommentCreateInput {
+  body: String
+  comments: CommentCreateNestedManyWithoutParentInput
+  createdAt: DateTime
+  parent: CommentCreateNestedOneWithoutCommentsInput
+  post: PostCreateNestedOneWithoutCommentsInput!
+  username: String!
+}
+
+input CommentCreateManyParentInput {
+  body: String
+  createdAt: DateTime
+  id: Int
+  postId: Int!
+  username: String!
+}
+
+input CommentCreateManyParentInputEnvelope {
+  data: [CommentCreateManyParentInput!]
+  skipDuplicates: Boolean
+}
+
+input CommentCreateNestedManyWithoutParentInput {
+  connect: [CommentWhereUniqueInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutParentInput!]
+  create: [CommentCreateWithoutParentInput!]
+  createMany: CommentCreateManyParentInputEnvelope
+}
+
+input CommentCreateNestedOneWithoutCommentsInput {
+  connect: CommentWhereUniqueInput
+  connectOrCreate: CommentCreateOrConnectWithoutCommentsInput
+  create: CommentCreateWithoutCommentsInput
+}
+
+input CommentCreateOrConnectWithoutCommentsInput {
+  create: CommentCreateWithoutCommentsInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateOrConnectWithoutParentInput {
+  create: CommentCreateWithoutParentInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateWithoutCommentsInput {
+  body: String
+  createdAt: DateTime
+  parent: CommentCreateNestedOneWithoutCommentsInput
+  post: PostCreateNestedOneWithoutCommentsInput!
+  username: String!
+}
+
+input CommentCreateWithoutParentInput {
+  body: String
+  comments: CommentCreateNestedManyWithoutParentInput
+  createdAt: DateTime
+  post: PostCreateNestedOneWithoutCommentsInput!
+  username: String!
+}
+
+input CommentWhereUniqueInput {
+  id: Int
+}
+
 scalar DateTime
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
 type Mutation {
+  createComment(data: CommentCreateInput!): Comment!
   createPost(data: PostInputType): Post
   updatePost(data: PostInputType): Post
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
 }
 
 input NestedStringFilter {
@@ -39,11 +140,39 @@ input NestedStringNullableFilter {
 
 type Post {
   body: String
+  comments(orderBy: [PostCommentsOrderByInput!], where: PostCommentsWhereInput): [Comment!]!
   createdAt: DateTime!
   id: Int!
-  passwordDigest: String!
   title: String!
   updatedAt: DateTime!
+  username: String!
+}
+
+input PostCommentsOrderByInput {
+  id: SortOrder
+}
+
+input PostCommentsWhereInput {
+  parentId: IntNullableFilter
+}
+
+input PostCreateNestedOneWithoutCommentsInput {
+  connect: PostWhereUniqueInput
+  connectOrCreate: PostCreateOrConnectWithoutCommentsInput
+  create: PostCreateWithoutCommentsInput
+}
+
+input PostCreateOrConnectWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateWithoutCommentsInput {
+  body: String
+  createdAt: DateTime
+  passwordDigest: String!
+  title: String!
+  updatedAt: DateTime
   username: String!
 }
 
@@ -60,13 +189,30 @@ input PostWhereUniqueInput {
 }
 
 type Query {
-  post(where: PostWhereUniqueInput!): Post
-  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, where: QueryPostsWhereInput): [Post!]!
+  comments(after: CommentWhereUniqueInput, before: CommentWhereUniqueInput, first: Int, last: Int, orderBy: [QueryCommentsOrderByInput!], where: QueryCommentsWhereInput): [Comment!]!
+  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, orderBy: [QueryPostsOrderByInput!], where: QueryPostsWhereInput): [Post!]!
+}
+
+input QueryCommentsOrderByInput {
+  id: SortOrder
+}
+
+input QueryCommentsWhereInput {
+  parentId: IntNullableFilter
+}
+
+input QueryPostsOrderByInput {
+  id: SortOrder
 }
 
 input QueryPostsWhereInput {
   body: StringNullableFilter
   title: StringFilter
+}
+
+enum SortOrder {
+  asc
+  desc
 }
 
 input StringFilter {

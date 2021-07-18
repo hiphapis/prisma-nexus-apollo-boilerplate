@@ -19,6 +19,84 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CommentCommentsOrderByInput: { // input type
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  CommentCreateInput: { // input type
+    body?: string | null; // String
+    comments?: NexusGenInputs['CommentCreateNestedManyWithoutParentInput'] | null; // CommentCreateNestedManyWithoutParentInput
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    parent?: NexusGenInputs['CommentCreateNestedOneWithoutCommentsInput'] | null; // CommentCreateNestedOneWithoutCommentsInput
+    post: NexusGenInputs['PostCreateNestedOneWithoutCommentsInput']; // PostCreateNestedOneWithoutCommentsInput!
+    username: string; // String!
+  }
+  CommentCreateManyParentInput: { // input type
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: number | null; // Int
+    postId: number; // Int!
+    username: string; // String!
+  }
+  CommentCreateManyParentInputEnvelope: { // input type
+    data?: NexusGenInputs['CommentCreateManyParentInput'][] | null; // [CommentCreateManyParentInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  CommentCreateNestedManyWithoutParentInput: { // input type
+    connect?: NexusGenInputs['CommentWhereUniqueInput'][] | null; // [CommentWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['CommentCreateOrConnectWithoutParentInput'][] | null; // [CommentCreateOrConnectWithoutParentInput!]
+    create?: NexusGenInputs['CommentCreateWithoutParentInput'][] | null; // [CommentCreateWithoutParentInput!]
+    createMany?: NexusGenInputs['CommentCreateManyParentInputEnvelope'] | null; // CommentCreateManyParentInputEnvelope
+  }
+  CommentCreateNestedOneWithoutCommentsInput: { // input type
+    connect?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['CommentCreateOrConnectWithoutCommentsInput'] | null; // CommentCreateOrConnectWithoutCommentsInput
+    create?: NexusGenInputs['CommentCreateWithoutCommentsInput'] | null; // CommentCreateWithoutCommentsInput
+  }
+  CommentCreateOrConnectWithoutCommentsInput: { // input type
+    create: NexusGenInputs['CommentCreateWithoutCommentsInput']; // CommentCreateWithoutCommentsInput!
+    where: NexusGenInputs['CommentWhereUniqueInput']; // CommentWhereUniqueInput!
+  }
+  CommentCreateOrConnectWithoutParentInput: { // input type
+    create: NexusGenInputs['CommentCreateWithoutParentInput']; // CommentCreateWithoutParentInput!
+    where: NexusGenInputs['CommentWhereUniqueInput']; // CommentWhereUniqueInput!
+  }
+  CommentCreateWithoutCommentsInput: { // input type
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    parent?: NexusGenInputs['CommentCreateNestedOneWithoutCommentsInput'] | null; // CommentCreateNestedOneWithoutCommentsInput
+    post: NexusGenInputs['PostCreateNestedOneWithoutCommentsInput']; // PostCreateNestedOneWithoutCommentsInput!
+    username: string; // String!
+  }
+  CommentCreateWithoutParentInput: { // input type
+    body?: string | null; // String
+    comments?: NexusGenInputs['CommentCreateNestedManyWithoutParentInput'] | null; // CommentCreateNestedManyWithoutParentInput
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    post: NexusGenInputs['PostCreateNestedOneWithoutCommentsInput']; // PostCreateNestedOneWithoutCommentsInput!
+    username: string; // String!
+  }
+  CommentWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  IntNullableFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  NestedIntNullableFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    notIn?: number[] | null; // [Int!]
+  }
   NestedStringFilter: { // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
@@ -45,6 +123,29 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  PostCommentsOrderByInput: { // input type
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  PostCommentsWhereInput: { // input type
+    parentId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+  }
+  PostCreateNestedOneWithoutCommentsInput: { // input type
+    connect?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PostCreateOrConnectWithoutCommentsInput'] | null; // PostCreateOrConnectWithoutCommentsInput
+    create?: NexusGenInputs['PostCreateWithoutCommentsInput'] | null; // PostCreateWithoutCommentsInput
+  }
+  PostCreateOrConnectWithoutCommentsInput: { // input type
+    create: NexusGenInputs['PostCreateWithoutCommentsInput']; // PostCreateWithoutCommentsInput!
+    where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+  }
+  PostCreateWithoutCommentsInput: { // input type
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    passwordDigest: string; // String!
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    username: string; // String!
+  }
   PostInputType: { // input type
     body: string; // String!
     id?: number | null; // Int
@@ -54,6 +155,15 @@ export interface NexusGenInputs {
   }
   PostWhereUniqueInput: { // input type
     id?: number | null; // Int
+  }
+  QueryCommentsOrderByInput: { // input type
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  QueryCommentsWhereInput: { // input type
+    parentId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+  }
+  QueryPostsOrderByInput: { // input type
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   QueryPostsWhereInput: { // input type
     body?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
@@ -88,6 +198,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  SortOrder: "asc" | "desc"
 }
 
 export interface NexusGenScalars {
@@ -100,12 +211,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Comment: { // root type
+    body?: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    username: string; // String!
+  }
   Mutation: {};
   Post: { // root type
     body?: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
-    passwordDigest: string; // String!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     username: string; // String!
@@ -121,50 +237,76 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Comment: { // field return type
+    body: string | null; // String
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    post: NexusGenRootTypes['Post']; // Post!
+    username: string; // String!
+  }
   Mutation: { // field return type
+    createComment: NexusGenRootTypes['Comment']; // Comment!
     createPost: NexusGenRootTypes['Post'] | null; // Post
     updatePost: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
     body: string | null; // String
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
-    passwordDigest: string; // String!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     username: string; // String!
   }
   Query: { // field return type
-    post: NexusGenRootTypes['Post'] | null; // Post
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Comment: { // field return type name
+    body: 'String'
+    comments: 'Comment'
+    createdAt: 'DateTime'
+    id: 'Int'
+    post: 'Post'
+    username: 'String'
+  }
   Mutation: { // field return type name
+    createComment: 'Comment'
     createPost: 'Post'
     updatePost: 'Post'
   }
   Post: { // field return type name
     body: 'String'
+    comments: 'Comment'
     createdAt: 'DateTime'
     id: 'Int'
-    passwordDigest: 'String'
     title: 'String'
     updatedAt: 'DateTime'
     username: 'String'
   }
   Query: { // field return type name
-    post: 'Post'
+    comments: 'Comment'
     posts: 'Post'
   }
 }
 
 export interface NexusGenArgTypes {
+  Comment: {
+    comments: { // args
+      orderBy?: NexusGenInputs['CommentCommentsOrderByInput'][] | null; // [CommentCommentsOrderByInput!]
+    }
+  }
   Mutation: {
+    createComment: { // args
+      data: NexusGenInputs['CommentCreateInput']; // CommentCreateInput!
+    }
     createPost: { // args
       data?: NexusGenInputs['PostInputType'] | null; // PostInputType
     }
@@ -172,15 +314,27 @@ export interface NexusGenArgTypes {
       data?: NexusGenInputs['PostInputType'] | null; // PostInputType
     }
   }
+  Post: {
+    comments: { // args
+      orderBy?: NexusGenInputs['PostCommentsOrderByInput'][] | null; // [PostCommentsOrderByInput!]
+      where?: NexusGenInputs['PostCommentsWhereInput'] | null; // PostCommentsWhereInput
+    }
+  }
   Query: {
-    post: { // args
-      where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+    comments: { // args
+      after?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      before?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['QueryCommentsOrderByInput'][] | null; // [QueryCommentsOrderByInput!]
+      where?: NexusGenInputs['QueryCommentsWhereInput'] | null; // QueryCommentsWhereInput
     }
     posts: { // args
       after?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
       before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['QueryPostsOrderByInput'][] | null; // [QueryPostsOrderByInput!]
       where?: NexusGenInputs['QueryPostsWhereInput'] | null; // QueryPostsWhereInput
     }
   }
@@ -196,7 +350,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = keyof NexusGenInputs;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 

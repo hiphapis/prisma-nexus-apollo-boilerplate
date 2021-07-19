@@ -1,5 +1,5 @@
 import { AuthenticationError } from "apollo-server";
-import { objectType, extendType, inputObjectType, mutationField } from 'nexus'
+import { objectType, extendType, inputObjectType, intArg, nonNull, stringArg } from 'nexus'
 import bcrypt from 'bcrypt';
 
 export const Post = objectType({
@@ -66,8 +66,6 @@ export const PostMutations = extendType({
           select: { passwordDigest: true },
           where: { id }
         })
-        console.dir(post, { depth: null })
-        console.log(password)
         if (!bcrypt.compareSync(password, post.passwordDigest)) {
           throw new AuthenticationError('Password does not matched')
         }
@@ -75,6 +73,28 @@ export const PostMutations = extendType({
         return ctx.prisma.post.update({
           where: { id },
           data: { title, body, username }
+        })
+      }
+    })
+
+    t.field('deletePost', {
+      type: 'Boolean',
+      args: {
+        id: nonNull(intArg()),
+        password: nonNull(stringArg())
+      },
+      async resolve(root, args, ctx) {
+        const { id, password } = args
+        const post = await ctx.prisma.post.findUnique({
+          select: { passwordDigest: true },
+          where: { id }
+        })
+        if (!bcrypt.compareSync(password, post.passwordDigest)) {
+          throw new AuthenticationError('Password does not matched')
+        }
+
+        return await ctx.prisma.post.delete({ where: { id }}).then((post) => {
+          ctx.prisma.comment.deleteMany({ where: { postId: id }})
         })
       }
     })

@@ -8,6 +8,7 @@ export const Comment = objectType({
     t.model.body()
     t.model.createdAt()
     t.model.post()
+    t.model.parent()
     t.model.comments({
       pagination: false,
       ordering: { id: true }

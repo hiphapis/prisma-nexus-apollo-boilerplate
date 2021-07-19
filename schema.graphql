@@ -7,7 +7,8 @@ type Comment {
   comments(orderBy: [CommentCommentsOrderByInput!]): [Comment!]!
   createdAt: DateTime!
   id: Int!
-  post: Post!
+  parent: Comment
+  post: Post
   username: String!
 }
 
@@ -20,7 +21,7 @@ input CommentCreateInput {
   comments: CommentCreateNestedManyWithoutParentInput
   createdAt: DateTime
   parent: CommentCreateNestedOneWithoutCommentsInput
-  post: PostCreateNestedOneWithoutCommentsInput!
+  post: PostCreateNestedOneWithoutCommentsInput
   username: String!
 }
 
@@ -64,7 +65,7 @@ input CommentCreateWithoutCommentsInput {
   body: String
   createdAt: DateTime
   parent: CommentCreateNestedOneWithoutCommentsInput
-  post: PostCreateNestedOneWithoutCommentsInput!
+  post: PostCreateNestedOneWithoutCommentsInput
   username: String!
 }
 
@@ -72,7 +73,7 @@ input CommentCreateWithoutParentInput {
   body: String
   comments: CommentCreateNestedManyWithoutParentInput
   createdAt: DateTime
-  post: PostCreateNestedOneWithoutCommentsInput!
+  post: PostCreateNestedOneWithoutCommentsInput
   username: String!
 }
 
@@ -96,6 +97,7 @@ input IntNullableFilter {
 type Mutation {
   createComment(data: CommentCreateInput!): Comment!
   createPost(data: PostInputType): Post
+  deletePost(id: Int!, password: String!): Boolean
   updatePost(data: PostInputType): Post
 }
 

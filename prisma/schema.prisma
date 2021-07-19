@@ -27,7 +27,7 @@ model Comment {
   body      String?   @db.Text
   createdAt DateTime  @default(now())
   postId    Int
-  post      Post      @relation(fields: [postId], references: [id])
+  post      Post?      @relation(fields: [postId], references: [id])
   parentId  Int?
   parent    Comment?  @relation("CommentDepth", fields: [parentId], references: [id])
   comments  Comment[] @relation("CommentDepth")

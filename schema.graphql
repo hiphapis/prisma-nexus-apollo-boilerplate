@@ -83,6 +83,17 @@ input CommentWhereUniqueInput {
 
 scalar DateTime
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
 input IntNullableFilter {
   equals: Int
   gt: Int
@@ -99,6 +110,17 @@ type Mutation {
   createPost(data: PostInputType): Post
   deletePost(id: Int!, password: String!): Boolean
   updatePost(data: PostInputType): Post
+}
+
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
 }
 
 input NestedIntNullableFilter {
@@ -201,6 +223,7 @@ input QueryCommentsOrderByInput {
 
 input QueryCommentsWhereInput {
   parentId: IntNullableFilter
+  postId: IntFilter
 }
 
 input QueryPostsOrderByInput {

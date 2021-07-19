@@ -20,7 +20,7 @@ export const CommentQueries = extendType({
   type: 'Query',
   definition(t) {
     t.crud.comments({
-      filtering: { parentId: true },
+      filtering: { parentId: true, postId: true },
       ordering: { id: true }
     })
   },

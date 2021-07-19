@@ -77,6 +77,16 @@ export interface NexusGenInputs {
   CommentWhereUniqueInput: { // input type
     id?: number | null; // Int
   }
+  IntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    notIn?: number[] | null; // [Int!]
+  }
   IntNullableFilter: { // input type
     equals?: number | null; // Int
     gt?: number | null; // Int
@@ -85,6 +95,16 @@ export interface NexusGenInputs {
     lt?: number | null; // Int
     lte?: number | null; // Int
     not?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  NestedIntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     notIn?: number[] | null; // [Int!]
   }
   NestedIntNullableFilter: { // input type
@@ -161,6 +181,7 @@ export interface NexusGenInputs {
   }
   QueryCommentsWhereInput: { // input type
     parentId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    postId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   QueryPostsOrderByInput: { // input type
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
